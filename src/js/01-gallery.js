@@ -1,5 +1,5 @@
 
-import SimpleLightbox from "simplelightbox"; 
+import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
 import { galleryItems } from './gallery-items';
 
@@ -7,7 +7,7 @@ import { galleryItems } from './gallery-items';
 const gallery = document.querySelector(".gallery");
 const images = galleryItems.map(({ preview, original, description }) => {
 
-        const imageItem = `<div class="gallery__item">
+  const imageItem = `<div class="gallery__item">
       <a class="gallery__link" href="${original}">
         <img
           class="gallery__image"
@@ -17,54 +17,55 @@ const images = galleryItems.map(({ preview, original, description }) => {
         />
       </a>
     </div>`;
-    return imageItem;
+  return imageItem;
 }).join("");
 
 
 gallery.innerHTML = images;
 gallery.addEventListener("click", selectImg);
 
-function selectImg(event) { 
+function selectImg(event) {
 
   if (event.target.nodeName !== "IMG") {
-      return;
+    return;
   }
 
-    event.preventDefault();
-    event.target.src = event.target.dataset.source; 
-    const selectedImg = event.target.src; 
+  event.preventDefault();
+  // event.target.src = event.target.dataset.source;
 
-//   const gallery = new SimpleLightbox(`.gallery a`, {
-//     captionsData: 'alt',
-//     captionDelay: '250',
-//   });
-//   gallery.on('show.simplelightbox');
-//   const gallery = new SimpleLightbox(`.gallery a`, {
-//     captionsData: 'alt',
-//     captionDelay: '250',
-//   });
-//   gallery.on('show.simplelightbox');
-//   e.preventDefault();
-//   document.addEventListener('keydown', closeModalOnEscape);
+  const instance = new SimpleLightbox('.gallery a');
 
-//   function closeModalOnEscape(e) {
-//     if (e.key === 'Escape') {
-//       document.removeEventListener('keydown', closeModalOnEscape);
-//       gallery.on('close.simplelightbox');
-//     }
-//   }
+  //   const gallery = new SimpleLightbox(`.gallery a`, {
+  //     captionsData: 'alt',
+  //     captionDelay: '250',
+  //   });
+  //   gallery.on('show.simplelightbox');
+  //   const gallery = new SimpleLightbox(`.gallery a`, {
+  //     captionsData: 'alt',
+  //     captionDelay: '250',
+  //   });
+  //   gallery.on('show.simplelightbox');
+  //   e.preventDefault();
+  //   document.addEventListener('keydown', closeModalOnEscape);
 
-    const instance = basicLightbox.create(`<img width="1280" height="871" src="${selectedImg}">`);
-    instance.show()
+  //   function closeModalOnEscape(e) {
+  //     if (e.key === 'Escape') {
+  //       document.removeEventListener('keydown', closeModalOnEscape);
+  //       gallery.on('close.simplelightbox');
+  //     }
+  //   }
 
-     document.addEventListener("keydown", event => {
-        const visible = basicLightbox.visible();
-        if (event.key === "Escape" && visible === true) {
-            instance.close();
-         }
+  // const instance = basicLightbox.create(`<img width="1280" height="871" src="${selectedImg}">`); 
+  instance.show()
 
-     }, {once: true});
-    
+  document.addEventListener("keydown", event => {
+    const visible = basicLightbox.visible();
+    if (event.key === "Escape" && visible === true) {
+      instance.close();
+    }
+
+  }, { once: true });
+
 }
 
 
